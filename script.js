@@ -26,6 +26,7 @@ function addItem(item) {
 
   if (!itemExists) {
     shoppingList.push(item);
+    updateListDisplay(); // update browser list
     console.log(`${item} added to the shopping list.`);
   } else {
     console.log(`${item} is already in the shopping list.`);
@@ -41,13 +42,23 @@ function filterItems(searchTerm) {
   return results;
 }
 
+// --------------------------
+// Task 3: Render the List
+// --------------------------
 
-// TEST CODE 
-addItem("Apples");
-addItem("Bananas");
-addItem("apples");  
-displayList();
-filterItems("ap");
+function addItemFromInput() {
+  const input = document.getElementById("itemInput");
+  const newItem = input.value.trim();
+  if (newItem !== "") {
+    addItem(newItem);
+    input.value = "";
+  }
+}
+
+function removeLastItemFromList() {
+  removeLastItem();
+  updateListDisplay();
+}
 
 function updateListDisplay() {
   const listElement = document.getElementById("shoppingList");
@@ -59,21 +70,9 @@ function updateListDisplay() {
   });
 }
 
-function addItemFromInput() {
-  const input = document.getElementById("itemInput");
-  const newItem = input.value.trim();
-  if (newItem) {
-    addItem(newItem);
-    input.value = "";
-    updateListDisplay();
-  }
-}
-
-function removeLastItem() {
-  shoppingList.pop();
-  updateListDisplay();
-}
-
+// Event listeners for buttons
+document.getElementById("addButton").addEventListener("click", addItemFromInput);
+document.getElementById("removeButton").addEventListener("click", removeLastItemFromList);
 
 
 
