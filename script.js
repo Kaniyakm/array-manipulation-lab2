@@ -45,9 +45,35 @@ function filterItems(searchTerm) {
 // TEST CODE 
 addItem("Apples");
 addItem("Bananas");
-addItem("apples");  // duplicate test
+addItem("apples");  
 displayList();
 filterItems("ap");
+
+function updateListDisplay() {
+  const listElement = document.getElementById("shoppingList");
+  listElement.innerHTML = "";
+  shoppingList.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    listElement.appendChild(li);
+  });
+}
+
+function addItemFromInput() {
+  const input = document.getElementById("itemInput");
+  const newItem = input.value.trim();
+  if (newItem) {
+    addItem(newItem);
+    input.value = "";
+    updateListDisplay();
+  }
+}
+
+function removeLastItem() {
+  shoppingList.pop();
+  updateListDisplay();
+}
+
 
 
 
